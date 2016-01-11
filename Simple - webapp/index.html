@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>La Boutique Cassée</title>
+	<meta name="description" content="Hello World">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link href="StyleSheets\style.css" rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="JS/Script.js"></script>
+	<script >
+	// var API_ROOT = 'http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc';
+	var API_ROOT = 'http://localhost:8188/Service.svc';
+	var URL_BOOKS = API_ROOT + "/booklist";
+	var URL_DVDS = API_ROOT + "/brlist";
+	var CATEGORY_ID;
+	window.onload = init();
+
+	function init() {
+		if (getCategoryId() === '2') {
+			getDVDs();
+		} else {
+			getBooks();
+		}
+	}
+	function getBooks() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", URL_BOOKS, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onload = function() {
+			var resp = JSON.parse(xhr.responseText);
+			displayBooks(resp);
+		}
+		xhr.send(URL_BOOKS);
+	}
+	function displayBooks(books) {
+		var thumbnails = "";
+		$.each(books, function(i, book) {
+			thumbnails += '<div class="col-xs-6 col-md-3">\
+				  <div class="thumbnail well">';
+			thumbnails += "<img src=http://localhost:8188/Service.svc/bookimg?id=" + book.Id + ">";
+			thumbnails += '<div class="caption">\
+				          <h3 class="truncate">' + book.Title + '</h3>\
+				          <span class="author-initials">' + book.AuthorInitials + '</span>\
+				          <span class="author-surname">' + book.AuthorSurname + '</span>\
+				          <a href="#" id='+ book.Id +' class="btn btn-primary right" role="button" onclick="buyBook(this);">Buy</a>\
+				      </div>\
+				  </div>\
+				</div>';
+			// lconsole.log(book.Id + " : " + book);
+		});
+		document.getElementById('show_result').innerHTML = thumbnails;
+	}
+	function getDVDs() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", URL_DVDS, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onload = function() {
+			var resp = JSON.parse(xhr.responseText);
+			displayDVDs(resp);
+		}
+		xhr.send(null);
+	}
+	function displayDVDs(dvds) {
+		var thumbnails = "";
+		$.each(dvds, function(i, dvd) {
+			thumbnails += '<div class="col-xs-6 col-md-3">\
+					  <div class="thumbnail well">';
+			thumbnails += "<img src='http://localhost:8188/Service.svc/brimg?id=" + dvd.Id + "'>";
+			thumbnails += '<div class="caption">\
+					          <h3 class="truncate">' + dvd.Title + '</h3>\
+					          <a href="#" id='+ dvd.Id +' class="btn btn-primary right" role="button" onclick="buyBruRay(this);">Buy</a>\
+					      </div>\
+					  </div>\
+					</div>';
+			console.log(dvd.Id + " : " + dvd);
+		});
+		document.getElementById('show_result').innerHTML = thumbnails;
+	}
+	function buyBook(event) {
+		var id = event.getAttribute('id');
+		API_ROOT = 'http://localhost:8189/Service.svc';
+		window.location =  'http://localhost:8189/Service.svc' + '/bookbuy?id=' + id;
+	}
+
+	function buyBruRay(id) {
+		var id = event.getAttribute('id');
+		// API_ROOT = 'http://localhost:8189/Service.svc';
+		window.location = 'http://localhost:8189/Service.svc'+ '/brbuy?id=' + id;
+	}
+
+	function CatagorySelect(event) {
+		var optionSelected = $("option:selected", event);
+		var id = event.value; // var valueSelected = event.val();
+		if (id === '2') {
+			getDVDs();
+		} else {
+			getBooks();
+		}
+		setCategoryId(id);
+	}
+
+	function setCategoryId(val) {
+		CATEGORY_ID = val;
+	}
+
+	function getCategoryId(event) {
+		var optionSelected = $("option:selected", event);
+		// var val2 = event.value;		
+		var val = optionSelected.attr('value');
+		// var val = (optionSelected === "BluRay") ?  2 : 1;
+		return val;
+	}
+
+	function keyboardSearch(event) {
+		var searchTerm = event.value;
+		search(searchTerm);
+	}
+
+	function clickSearch() {
+		debugger
+		var searchTerm = $('#search-library').val();
+		search(searchTerm);
+	}
+
+	function clearSearch() {
+		debugger
+		var searchTerm = $('#search-library').val("");
+		search(searchTerm);
+	}
+
+	function search(searchTerm) {
+
+		if (this.getCategoryId() === '2' && (searchTerm != "" && searchTerm != null)) {
+			URL_DVDS = API_ROOT + '/brsearch?term=' + searchTerm;
+		} else {
+			URL_BOOKS = API_ROOT + '/booksearch?term=' + searchTerm;
+		}
+		init();
+	}
+
+	// $("#search-library").onkeypress(function(e) {
+	// 	debugger
+	// 	if (e.which == 13) {
+	// 		alert('enter key is pressed');
+	// 	}
+	// });
+	</script>
+
+</head>
+
+<body>
+<header>
+
+	<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<h2><a href="Index.html" class="navbar-brand">La Boutique</a></h2>
+			</div>
+			<div class="collpase navbar-collapse" id="example">
+				<ul class="nav navbar-nav">
+					<!-- <li><a href="">Link1</a></li>
+					<li class="active"><a href="">Link2</a></li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<img src="logo.png">	
+		</div> 
+	</div> 
+</header>
+
+<ul class="nav">
+	<li class="active"><a class="active" href="Index.html">Your Shop</a></li>
+	<li><a href="Join.html">Join the shop</a></li>
+	<li><a href="Comments.html">Your comments </a></li>
+
+</ul>
+<hr>
+	<div class="container main">
+		<div class="row">
+			<div class="input-group">
+              <input type="text" class="form-control" placeholder="Search..." id="search-library" onkeypress="keyboardSearch(this);" >
+              <span class="input-group-btn">
+                <button id="clear-text" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon glyphicon-remove" onclick="clearSearch();"></span></button>
+                <button class="btn btn-default glyphicon glyphicon-search" type="button" id="search" onclick="clickSearch();" >Search</button>
+              </span>
+            </div>
+            <div>
+				<select id="category" class="selectpicker right" onchange="CatagorySelect(this);">
+					<option value="1">Book</option>
+					<option value="2">BluRay</option>
+				</select> 
+			</div>
+          </div>    	
+
+		<div id="show_result" class="row">
+			<p > Results  </p>
+		</div>
+		<div class="row">
+		</div>
+	</div> <!-- end container -->
+
+<footer>
+	<hr>
+</footer>
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified JavaScript -->
+
+</body>	
+</html>

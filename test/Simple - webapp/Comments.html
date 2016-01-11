@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>La Boutique Cassée</title>
+	<meta name="description" content="Hello World">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme  SADF F -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link href="StyleSheets\style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<header>
+			<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<h2><a href="Index.html" class="navbar-brand">La Boutique</a></h2>
+				</div>
+				<div class="collpase navbar-collapse" id="example">
+					<ul class="nav navbar-nav">
+						<!-- <li><a href="">Link1</a></li>
+						<li class="active"><a href="">Link2</a></li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<div class="container">
+				<img src="logo.png">
+			</div> 
+		</div> 
+	</header>
+		<ul class="nav">
+		 <li><a href="Index.html">Your Shop</a></li>
+		 <li ><a href="Join.html ">Join the shop</a></li>
+		 <li class="active"><a class="active" href="Comments.html">Your comments </a></li>
+		</ul>
+
+	<div class="container main">
+			<label>Name :</label>
+			<br>
+			<p>The text area above is outside the form element, but should still be a part of the form.</p>
+			<span>
+			<P>	
+				<input id="usernamebox" type="text" name="usrname">
+			</P>
+			<button onclick='postComment()'>Post</button>
+			</span>
+			<textarea id = "Comments" rows="10" cols="50" type="text" name="nameComment">
+			</textarea>
+
+			<br>
+			<button onclick='getComment()'>Click me.</button>
+			<p id="show_result"> </p>
+			
+	 </div> <!-- end container -->
+
+	
+
+	
+	<footer>
+		<hr>
+		
+	</footer>
+<!-- Latest compiled and minified JavaScript -->
+		<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="JS/Script.js"></script>
+	</body>	
+
+</html>

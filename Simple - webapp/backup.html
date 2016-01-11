@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>La Boutique Cassée</title>
+	<meta name="description" content="Hello World">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link href="StyleSheets\style.css" rel="stylesheet" type="text/css" />
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="JS/Script.js"></script>script>
+	<script >
+	window.onload = init();
+
+	function init() {
+		// check CatagorySelect(event)
+		getBooks();
+
+	var API_ROOT = "http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc";
+	var collectionUrlBooks = API_ROOT + '/booklist';
+	var collectionUrlDVDs = API_ROOT + '/brlist';
+	}
+
+	var API_ROOT = "http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc";
+	var collectionUrlBooks = API_ROOT + '/booklist';
+	var collectionUrlDVDs = API_ROOT + '/brlist';
+
+	function getBooks() {
+		var uri = this.collectionUrlBooks;
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", uri, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onload = function() {
+			var resp = JSON.parse(xhr.responseText);
+			displayBooks(resp);
+		}
+		xhr.send(null);
+	}
+
+
+	function displayBooks(books) {
+		var thumbnails = "";
+		$.each(books, function(i, book) {
+			thumbnails += '<div class="col-xs-6 col-md-3">\
+				  <div class="thumbnail well">';
+			thumbnails += "<img src=http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc/bookimg?id=" + book.Id + ">";
+			thumbnails += '<div class="caption">\
+				          <h3 class="truncate">' + book.Title + '</h3>\
+				          <span class="author-initials">' + book.AuthorInitials + '</span>\
+				          <span class="author-surname">' + book.AuthorSurname + '</span>\
+				          <a href="#" class="btn btn-primary right" role="button">Buy</a>\
+				      </div>\
+				  </div>\
+				</div>';
+
+			console.log(book.Id + " : " + book);
+		});
+		document.getElementById('show_result').innerHTML = thumbnails;
+	}
+
+	function getDVDs() {
+		var uri = "collectionUrlDVDs";
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", uri, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.setRequestHeader("Accept", "application/json");
+		xhr.onload = function() {
+			var resp = JSON.parse(xhr.responseText);
+			displayDVDs(resp);
+		}
+		xhr.send(null);
+	}
+
+	function displayDVDs(dvds) {
+		var thumbnails = "";
+		$.each(dvds, function(i, dvd) {
+			thumbnails += '<div class="col-xs-6 col-md-3">\
+				  <div class="thumbnail well">';
+			thumbnails += "<img src=http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc/brimg?id=" + dvd.Id + ">";
+			thumbnails += '<div class="caption">\
+				          <h3 class="truncate">' + dvd.Title + '</h3>\
+				          <a href="#" class="btn btn-primary right" role="button">Buy</a>\
+				      </div>\
+				  </div>\
+				</div>';
+
+			console.log(dvd.Id + " : " + dvd);
+		});
+		document.getElementById('show_result').innerHTML = thumbnails;
+	}
+
+	function CatagorySelect(event) {
+
+		if (this.getCategoryId() === '2') {
+			getDVDs();
+		} else {
+			getBooks();
+		}
+	}
+
+	function getCategoryId() {
+		var option = $("option:selected", this);
+		var id;
+		return (option === "BluRay") ? id = 2 : id = 1;
+	}
+	$('select').change(function(e) {
+		debugger
+		var optionSelected = $("option:selected", this);
+		var valueSelected = this.value;
+		alert("aSome");
+	});
+
+	function keyboardSearch(event) {
+		// var searchTerm = event.target.value;
+		// this.search(searchTerm);
+	}
+
+	function clickSearch() {
+		debugger
+		var searchTerm = $('#search-library').val();
+		this.search(searchTerm);
+	}
+
+	function clearSearch() {
+		debugger
+		$('#search-library').val();
+		this.search('');
+	}
+
+	function search(searchTerm) {
+		if (this.getCategoryId() === '2') {
+			collectionUrlDVDs = API_ROOT + '/brsearch?term=' + searchTerm;
+		} else {
+			collectionUrlBooks = API_ROOT + '/booksearch?term=' + searchTerm;
+		}
+
+		init();
+	}
+
+	$("#search-library").keypress(function(e) {
+		debugger
+		if (e.which == 13) {
+			alert('enter key is pressed');
+		}
+	});
+	</script>
+
+</head>
+
+<body>
+<header>
+
+	<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<h2><a href="" class="navbar-brand">Boutique Cassee</a></h2>
+			</div>
+			<div class="collpase navbar-collapse" id="example">
+				<ul class="nav navbar-nav">
+					<li><a href="">Link1</a></li>
+					<li class="active"><a href="">Link2</a></li>
+				</ul>
+				<a href="" class="btn  navbar-btn">A button</a>
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<img src="logo.png">	
+		</div> 
+	</div> 
+</header>
+
+<ul class="nav">
+	<li class="active"><a href="Index.html active">Your Shop</a></li>
+	<li><a href="Join.html">Join the shop</a></li>
+	<li><a href="Comments.html">Your comments </a></li>
+
+</ul>
+<hr>
+	<div class="container main">
+		<div class="row">
+			<div class="input-group">
+              <input type="text" class="form-control" placeholder="Search..." id="search-library" onkeypress="keyboardSearch(this);" >
+              <span class="input-group-btn">
+                <button id="clear-text" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon glyphicon-remove" onclick="clearSearch();"></span></button>
+                <button class="btn btn-default glyphicon glyphicon-search" type="button" id="search" onclick="clickSearch();" >Search</button>
+              </span>
+            </div>
+          </div>    	
+			<div>
+				<select id="category" class="selectpicker" onchange="CatagorySelect(this);">
+					<option value="1">Book</option>
+					<option value="2">BluRay</option>
+				</select> 
+			</div>
+		      
+
+		<div id="show_result" class="row">
+			<p > Results  </p>
+		</div>
+		<div class="row">
+		</div>
+
+		<p><small><a href="http://facebook.com/askorama">Like me</a> On facebook</small></p>
+		<p>	<small><a href="http://twitter.com/wiredwiki">Ask whatever </a> On Twitter</small></p>
+		<p>	<small><a href="http://youtube.com/wiredwiki">Subscribe me</a> On Youtube</small></p>
+	</div> <!-- end container -->
+
+<footer>
+	<hr>
+</footer>
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified JavaScript -->
+
+</body>	
+</html>

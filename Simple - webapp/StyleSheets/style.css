@@ -1,0 +1,148 @@
+span.code
+{
+   font-family: Courier;
+   font-size: medium;
+}
+
+div.highlight
+{
+   background-color: Silver;
+   border-color: Gray;
+   border-style: dotted;
+   padding: 3ex 3ex 3ex 3ex;
+}
+
+a.navbar-brand{
+
+    margin: 0 auto;
+    margin: -10px;
+    padding-top: 4px;
+
+}
+.container.row{
+   padding: 5px;
+   margin: 5px;
+}
+
+body
+{
+   background-color: White;
+   font-family: Calibri, sans-serif;
+}
+
+.nav{
+    border:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+.nav li{
+    display:inline;
+}
+.nav a{
+    display:inline-block;
+    padding:10px;
+}
+
+
+.nav>li>a{
+   position: relative;
+   display: block;
+   padding: 10px, 15px;
+   display: inline-block;
+}
+nav.li.active, nav>a.active{
+  background: rgba(196, 188, 188, 0.49);
+}
+
+.container img{
+   width: 100%;
+   height: auto;
+   padding-top: 20px;
+}
+
+.item .item-preview {
+  height: 200px;
+  width: 300px;
+}
+
+.truncate {
+  width: 166px;
+  /*height: 307px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis 20px;
+}
+/*.thumbnail.well {
+    height: 507px;
+}*/
+select#category {
+    border-radius: 4px;
+    color: darkblue;
+    padding: 3px 30px;
+}
+
+.jumbotron {
+    padding: 30px;
+    margin-bottom: 0px;
+    color: inherit;
+    background-color: #eee;
+}
+
+a, th, td, p, li, dt, dd, h1, h2, h3, h4, h5
+{
+   font-family: verdana,arial,helvetica,sans-serif;
+   font-size: 14px;
+}
+select {
+  border-radius: 5px;
+}
+a
+{
+   color: blue;
+   font-size: 14px;
+   text-decoration: none;
+}
+a:hover
+{
+   color: red;
+   font-size: 14px;
+   text-decoration: underline;
+}
+a.active {
+    background-color: lavenderblush;
+}
+th
+{
+   font-size: 15px;
+}
+pre
+{
+   color: red;
+   background-color: #ffff0e;
+   font-size: 15px;
+   padding: 10px;
+   white-space: pre;
+   width: 100%;
+   overflow: auto;
+}
+h1
+{
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 24px;
+}
+
+h2
+{
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 18px;
+}
+
+h3
+{
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 15px;
+}
+

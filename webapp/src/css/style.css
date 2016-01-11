@@ -1,0 +1,30 @@
+.logo {
+   width: 100%;
+}
+
+#filters, #comments .container, #comment-form .input-group, #comment-form, #logged-in-as {
+    margin-top:  20px;
+}
+
+.item .item-preview {
+	height: 200px;
+	width: 300px;
+}
+
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logged-in-as a {
+	color: #333;
+}
+.logged-in-as b {
+	color: rgb(51, 122, 183);;
+}
+
+.right {
+	float: right;
+}

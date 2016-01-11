@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>La Boutique Cassée</title>
+  <meta name="description" content="La Boutique Cassée">
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" type="text/css" href="src/css/style.css" />
+</head>
+<body>
+<div class="container" id="logged-in-as"></div>
+<br/>
+<div id="app" class="container"></div>
+<div id="modal-container"></div>
+<div id="footer">
+  <div class="container">
+   <span>edso681</span>
+ </div>
+</div>
+</body>
+<script type="text/template" id="app-template">
+  <div class="jumbotron">
+    <img src="http://redsox.tcs.auckland.ac.nz/BC/Open/Service.svc/logo" class="logo"/>
+  </div>
+  <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+    <ul id="myTabs" class="nav nav-pills" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+      </li>
+      <li role="presentation">
+        <a href="#comments" role="tab" id="comments-tab" data-toggle="tab" aria-controls="comments">Comments</a>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+        <div class="well" id="filters">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search..." id="search-library">
+              <span class="input-group-btn">
+                <button id="clear-text" type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon glyphicon-remove"></span></button>
+                <button class="btn btn-default glyphicon glyphicon-search" type="button" id="search"></button>
+              </span>
+            </div>
+          </div>      
+          <select id="category" class="selectpicker">
+            <option value="1">Book</option>
+            <option value="2">BluRay</option>
+          </select> 
+        </div>
+
+        <div id="library"></div>
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="comments" aria-labelledby="comments-tab">
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="comment-template">
+  <div class="well" id="comment-form">
+    <textarea id="comment-textarea" class="form-control" rows="3" placeholder="Post Comment"></textarea> 
+    <div class="input-group">
+      <input id="comment-name" type="text" class="form-control" placeholder="Name">
+      <span class="input-group-btn">
+        <button  id="post-comment" class="btn btn-default glyphicon glyphicon-chevron-right" type="button"> </button>
+      </span>
+    </div><!-- /input-group -->
+  </div>
+  <%= Html %>
+</script>
+
+<script type="text/template" id="library-template">
+  <br/>
+</script>
+<script data-main="src/js/require.config" src="bower_components/requirejs/require.js"></script>
+</html>
